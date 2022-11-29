@@ -6,25 +6,31 @@ type CountryProviderProps = {
 
 type CountryContext = {
   getCountries: () => void;
-  getCountry: (countryName: string) => void
+  getCountry: (countryName: string) => void;
   countries: Country[];
-  country: Country
+  country: Country;
+  isDark: boolean;
+  getCountryNameByCca3: (cca3: string) => string;
+  handleToggleTheme: () => void;
 };
 
 const CountryContext = createContext({} as CountryContext);
 
 export const useCountryContext = () => {
-  return useContext(CountryContext)
-}
+  return useContext(CountryContext);
+};
 
 export const CountryContextProvider = ({ children }: CountryProviderProps) => {
-  const [countries, setCountries] = useState([] as Country[])
-  const [country, setCountry] = useState({} as Country)
- 
+  const [countries, setCountries] = useState([] as Country[]);
+  const [country, setCountry] = useState({} as Country);
+  const [isDark, setIsDark] = useState(false);
+
+  const url = "https://restcountries.com/v3.1";
+
   const getCountries = async () => {
-    const data = await axios.get("https://restcountries.com/v3.1/all");
+    const data = await axios.get(`${url}/all`);
     const countriesData = data.data;
-    //console.log(countriesData)
+    console.log(countriesData);
     const d: Country[] = countriesData.map((country: any) => {
       return {
         imgUrl: country.flags.png,
@@ -32,24 +38,47 @@ export const CountryContextProvider = ({ children }: CountryProviderProps) => {
         population: country.population,
         region: country.region,
         capital: country.capital,
-        nativeName: "Native Name",
+        nativeName: country.name.nativeName,
         subRegion: country.subregion,
-        topLevelDomain: "Top Level Domain",
-        currencies: "Currencies",
+        topLevelDomain: country.tld,
+        currencies: country.currencies,
         languages: country.languages,
         borders: country.borders,
+        cca3: country.cca3,
       };
     });
-    setCountries(d)
+    setCountries(d);
   };
 
-  const getCountry = (countryName: string) => {
-    const countryIndex = countries.findIndex(country => country.name == countryName)
-    setCountry(countries[countryIndex])
-  }
+  const getCountry = async (countryName: string) => {
+    const countryIndex = countries.findIndex(
+      (country) => country.name === countryName
+    );
+    setCountry(countries[countryIndex]);
+    console.log(countryIndex);
+  };
 
+  const getCountryNameByCca3 = (cca3: string) => {
+    const x = countries.filter((country) => country.cca3 === cca3);
+
+    return `${x[0].name}`;
+  };
+
+  const handleToggleTheme = () => {
+    setIsDark((prev) => !prev);
+  };
   return (
-    <CountryContext.Provider value={{country, getCountry, getCountries, countries }}>
+    <CountryContext.Provider
+      value={{
+        isDark,
+        handleToggleTheme,
+        getCountryNameByCca3,
+        country,
+        getCountry,
+        getCountries,
+        countries,
+      }}
+    >
       {children}
     </CountryContext.Provider>
   );

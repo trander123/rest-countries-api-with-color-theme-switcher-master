@@ -1,25 +1,34 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useCountryContext } from "../context/CountryContext";
+import { formatPopulation } from "../helpers/countryHelpers";
 
 interface ICountry {
   country: Country;
 }
 
 export const Country = ({ country }: ICountry) => {
+  const { getCountry } = useCountryContext();
   return (
-    <div className=" min-w-full sm:max-w-xs rounded-lg overflow-hidden shadow-lg border border-gray-100">
-      <div>
-        <img
-          src={country.imgUrl}
-          alt=""
-          className=" h-40 w-full object-cover"
-        />
+    <Link
+      to={`/country/${country.name}`}
+      onClick={() => getCountry(country.name)}
+    >
+      <div className=" rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800">
+        <div>
+          <img
+            src={country.imgUrl}
+            alt=""
+            className=" h-40 w-full object-cover"
+          />
+        </div>
+        <div className="p-5">
+          <p className=" font-bold mb-2.5">{country.name}</p>
+          <p>{`Population: ${formatPopulation(country.population)}`}</p>
+          <p>{`Region: ${country.region}`}</p>
+          <p>{`Capital: ${country.capital}`}</p>
+        </div>
       </div>
-      <div className="p-5">
-        <p className=" font-bold mb-2.5">{country.name}</p>
-        <p>{`Population: ${country.population}`}</p>
-        <p>{`Region: ${country.region}`}</p>
-        <p>{`Capital: ${country.capital}`}</p>
-      </div>
-    </div>
+    </Link>
   );
 };

@@ -3,12 +3,13 @@ type Country = {
   name: string,
   population: number,
   region: string,
-  capital: string[],
+  capital: string,
   //details
-  nativeName: string,
+  nativeName: object,
   subRegion: string,
   topLevelDomain: string,
-  currencies: string,
-  languages: string,
-  borders: string[]
+  currencies: object,
+  languages: object,
+  borders: string,
+  cca3: string
 }
