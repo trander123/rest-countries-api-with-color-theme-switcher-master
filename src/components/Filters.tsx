@@ -21,7 +21,7 @@ export const Filters = () => {
   };
 
   useEffect(() => {
-    getSearchedCountry(search);
+    getSearchedCountry(search.toLowerCase());
   }, [search]);
 
   return (
@@ -38,7 +38,7 @@ export const Filters = () => {
           placeholder="Search for a country..."
           className="bg-white dark:bg-gray-800 pl-10 pr-4 py-3 w-full sm:w-auto rounded-md"
           onChange={(e) => {
-            setSearch(e.target.value.toLowerCase());
+            setSearch(e.target.value);
           }}
         />
       </div>
