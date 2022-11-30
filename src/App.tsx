@@ -7,6 +7,7 @@ import { Header } from "./components/Header";
 import { CountryDetails } from "./components/CountryDetails";
 import { Container } from "./wrappers/Container";
 import { Filters } from "./components/Filters";
+import { CountryDetailsError } from "./error-pages/CountryDetailsError";
 function App() {
   const { getCountries } = useCountryContext();
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
           <CountryDetails />
         </Container>
       ),
+      errorElement: <CountryDetailsError />,
     },
   ]);
   return <RouterProvider router={router} />;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCountryContext } from "../context/CountryContext";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   formatPopulation,
   getCurrency,
@@ -17,9 +18,11 @@ export const CountryDetails = () => {
       <div className="mx-5 mt-10">
         <Link
           to="/"
-          className=" px-10 py-2 shadow-lg text-sm rounded-md bg-white dark:bg-gray-800"
+          className=" pl-2 pr-4 py-2 shadow-lg text-sm rounded-md bg-white dark:bg-gray-800 align-middle"
         >
-          Back
+          <span>
+            <ArrowBackIcon /> Back
+          </span>
         </Link>
 
         <div className=" sm:grid sm:grid-cols-2 mt-10 items-center justify-center gap-10">
