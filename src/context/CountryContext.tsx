@@ -76,7 +76,6 @@ export const CountryContextProvider = ({ children }: CountryProviderProps) => {
       (country) => country.name === countryName
     );
     setCountry(countries[countryIndex]);
-    
   };
 
   const getCountryNameByCca3 = (cca3: string) => {
