@@ -12,10 +12,10 @@ import { Borders } from "./Borders";
 
 export const CountryDetails = () => {
   const { country } = useCountryContext();
-  const [x, setX] = useState<Country>(() => {
-    const val = sessionStorage.getItem("country")
-    if(val !== null) return JSON.parse(val)
-    return country
+  const [countryDetails, setCountryDetails] = useState<Country>(() => {
+    const val = sessionStorage.getItem("country");
+    if (val !== null) return JSON.parse(val);
+    return country;
   });
 
   return (
@@ -33,30 +33,30 @@ export const CountryDetails = () => {
         <div className=" sm:grid sm:grid-cols-2 mt-10 items-center justify-center gap-10">
           <div className="mb-10">
             <img
-              src={x.imgUrl}
+              src={countryDetails.imgUrl}
               alt=""
               className="w-full object-cover shadow-lg"
             />
           </div>
           <div>
-            <p className=" text-2xl font-bold mb-10">{x.name}</p>
+            <p className=" text-2xl font-bold mb-10">{countryDetails.name}</p>
             <div className=" sm:flex mb-10 w-full gap-10">
               <div className="mb-10">
-                <p>Native Name: {getNativeName(x.nativeName)}</p>
-                <p>Population: {formatPopulation(x.population)}</p>
-                <p>Region: {x.region}</p>
-                <p>Sub Region: {x.subRegion}</p>
-                <p>Capital: {x.capital}</p>
+                <p>Native Name: {getNativeName(countryDetails.nativeName)}</p>
+                <p>Population: {formatPopulation(countryDetails.population)}</p>
+                <p>Region: {countryDetails.region}</p>
+                <p>Sub Region: {countryDetails.subRegion}</p>
+                <p>Capital: {countryDetails.capital}</p>
               </div>
               <div>
-                <p>Top Level Domain: {x.topLevelDomain}</p>
-                <p>Currencies: {getCurrency(x.currencies)}</p>
-                <p>Languages: {getLanguage(x.languages)}</p>
+                <p>Top Level Domain: {countryDetails.topLevelDomain}</p>
+                <p>Currencies: {getCurrency(countryDetails.currencies)}</p>
+                <p>Languages: {getLanguage(countryDetails.languages)}</p>
               </div>
             </div>
             <div className="sm:flex sm:space-x-4">
               <p className=" text-xl font-medium mb-5">Border Countries: </p>
-              <Borders borders={x.borders} />
+              <Borders borders={countryDetails.borders} />
             </div>
           </div>
         </div>

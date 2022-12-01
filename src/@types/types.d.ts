@@ -10,6 +10,6 @@ type Country = {
   topLevelDomain: string,
   currencies: object,
   languages: object,
-  borders: string,
+  borders: string[],
   cca3: string
 }

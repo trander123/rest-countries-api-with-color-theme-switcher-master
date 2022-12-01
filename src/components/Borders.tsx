@@ -7,20 +7,17 @@ interface IBorderProps {
 }
 
 export const Borders = ({ borders }: IBorderProps) => {
-  const { getCountryNameByCca3 } = useCountryContext();
   const isArray = typeof borders === "object";
-
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3">
       {isArray
         ? borders.map((border, index) => (
-            <Link
+            <div
               key={`${border}${index}`}
-              to={`/country/${border}`}
               className=" text-center px-4 py-2 shadow-lg bg-white dark:bg-gray-800 m-5"
             >
-              {getCountryNameByCca3(border)}
-            </Link>
+              {border}
+            </div>
           ))
         : "N/A"}
     </div>

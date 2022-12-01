@@ -11,7 +11,6 @@ type CountryContext = {
   filteredCountries: Country[];
   country: Country;
   isDark: boolean;
-  getCountryNameByCca3: (cca3: string) => string;
   handleToggleTheme: () => void;
   getFilteredCountries: (region: string) => void;
   getSearchedCountry: (countryName: string) => void;
@@ -35,6 +34,7 @@ export const CountryContextProvider = ({ children }: CountryProviderProps) => {
     try {
       const data = await axios.get(`${url}/all`);
       const countriesData = data.data;
+      //console.log(countriesData);
       const d: Country[] = countriesData.map((country: any) => {
         return {
           imgUrl: country.flags.png,
@@ -78,11 +78,6 @@ export const CountryContextProvider = ({ children }: CountryProviderProps) => {
     setCountry(countries[countryIndex]);
   };
 
-  const getCountryNameByCca3 = (cca3: string) => {
-    const x = countries.filter((country) => country.cca3 === cca3);
-
-    return `${x[0].name}`;
-  };
 
   const handleToggleTheme = () => {
     setIsDark((prev) => !prev);
@@ -95,7 +90,6 @@ export const CountryContextProvider = ({ children }: CountryProviderProps) => {
         getFilteredCountries,
         isDark,
         handleToggleTheme,
-        getCountryNameByCca3,
         country,
         getCountry,
         getCountries,
