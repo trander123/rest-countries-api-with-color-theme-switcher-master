@@ -12,7 +12,10 @@ export const Country = ({ country }: ICountry) => {
   return (
     <Link
       to={`/country/${country.name}`}
-      onClick={() => getCountry(country.name)}
+      onClick={() => {
+        getCountry(country.name)
+        sessionStorage.setItem("country", JSON.stringify(country))
+      }}
     >
       <div className=" rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800">
         <div>
